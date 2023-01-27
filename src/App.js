@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
+import FriendChatBox from './components/ChatLayoutChildren/FriendChatBox';
+import Photo from './components/ChatLayoutChildren/Photo';
+import ChatLayout from './components/ChatLayout';
+import HomePage from './components/HomePage';
 
 function App() {
+
+  const router = createBrowserRouter(createRoutesFromElements(
+    <Route>
+      <Route path='/' element={<HomePage />} />
+      <Route path='/reactChatWeb/:adminId' element={<ChatLayout />} >
+        <Route index element={<Photo />} />
+        <Route path=':friendId' element={<FriendChatBox />} />
+      </Route>
+    </Route>
+  ))
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
